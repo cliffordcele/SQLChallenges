@@ -13,6 +13,10 @@ Danny has shared with you 3 key datasets for this case study:
 * **MENU:** maps the product_id to the actual product_name and price of each menu item.
 * **MEMBERS:** captures the join_date when a customer_id joined the beta version of the Danny’s Diner loyalty program.
 
+# Entity Relationship Diagram
+
+![ER_Diagram](ER_Diagram.png)
+
 # Case Study Questions
 
 1.	What is the total amount each customer spent at the restaurant?
