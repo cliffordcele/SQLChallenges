@@ -109,7 +109,7 @@ GROUP BY s.product_id, m.product_name
 ORDER BY purchase_count DESC
 LIMIT 1;
 ```
----
+
 | product_id | product_name | purchase_count |
 | ---------- | ------------ | -------------- |
 | 3          | ramen        | 8              |
