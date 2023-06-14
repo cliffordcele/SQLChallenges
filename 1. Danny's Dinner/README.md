@@ -32,8 +32,6 @@ FROM dannys_diner.sales s
 GROUP BY s.customer_id
 ORDER BY s.customer_id;
 ```
-
-**Schema (PostgreSQL v13)**
 ---
 
 | customer_id | total_spent |
