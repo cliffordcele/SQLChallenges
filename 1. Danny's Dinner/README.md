@@ -23,9 +23,9 @@ Danny has shared with you 3 key datasets for this case study:
 # Case Study Solutions
 
 1. **What is the total amount each customer spent at the restaurant?**
-* Left join the data from the menu table to the sales table using the product_id as the link between the two tables
-* Group the orders made in the sales table by the customer_id
-* Sum the price for each order by customer_id to obtain the total_spent by customer
+* Left join the data from the menu table to the sales table using the product_id as the link between the two tables.
+* Group the orders made in the sales table by the customer_id.
+* Sum the price for each order by customer_id to obtain the total_spent by customer.
 ```SQL
 SELECT s.customer_id, 
 	SUM(m.price) AS total_spent
@@ -46,8 +46,8 @@ ORDER BY s.customer_id;
 
 
 2. **How many days has each customer visited the restaurant?**
-* Group the orders made in the sales table by the customer_id
-* Use the distinct count function on order_date to count the number of unique dates per customer
+* Group the orders made in the sales table by the customer_id.
+* Use the distinct count function on order_date to count the number of unique dates per customer.
 
 ```SQL
 SELECT customer_id, 
@@ -68,10 +68,13 @@ ORDER BY customer_id;
 
 
 3. **What was the first item from the menu purchased by each customer?**
-
+* Left join the data from the menu table to the sales table using the product_id as the link between the two tables.
+* Sort the table by the order_date and then by customer_id to find the earliest purchases by customer.
+* Note one, customers A and C ordered more than one item during their first purchase.
+* Note two, the query below will return all the orders made sorted by date and customer. The table below is a subset of the full table.
 ```SQL
 SELECT s.customer_id, 
-	   s.order_date, 
+       s.order_date, 
        m.product_name
 FROM dannys_diner.sales s
 	LEFT JOIN dannys_diner.menu m 
