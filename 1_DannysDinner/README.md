@@ -9,9 +9,9 @@ Danny wants to use the data to answer a few simple questions about his customers
 # Data
 
 Danny has shared with you 3 key datasets for this case study:
-* **SALES:** captures all <u>customer_id</u> level purchases with an corresponding order_date and product_id information for when and what menu items were ordered.
+* **SALES:** captures all <u>customer_id</u> level purchases with an corresponding [order_date]() and [product_id]() information for when and what menu items were ordered.
 * **MENU:** maps the [product_id]() to the actual [product_name]() and price of each menu item.
-* **MEMBERS:** captures the join_date when a customer_id joined the beta version of the Danny’s Diner loyalty program.
+* **MEMBERS:** captures the [join_date]() when a [customer_id]() joined the beta version of the Danny’s Diner loyalty program.
 
 # Entity Relationship Diagram
 
@@ -21,8 +21,8 @@ Danny has shared with you 3 key datasets for this case study:
 
 ## * 1.	What is the total amount each customer spent at the restaurant? *
 ## * 2.	How many days has each customer visited the restaurant? *
-### * 3.	What was the first item from the menu purchased by each customer? *
-#### * 4.	What is the most purchased item on the menu and how many times was it purchased by all customers? *
+* 3.	What was the first item from the menu purchased by each customer? *
+* 4.	What is the most purchased item on the menu and how many times was it purchased by all customers? *
 * 5.	Which item was the most popular for each customer? *
 * 6.	Which item was purchased first by the customer after they became a member? *
 * 7.	Which item was purchased just before the customer became a member? *
