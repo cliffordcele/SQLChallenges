@@ -174,7 +174,7 @@ WHERE rnk = 1;
 7. **Which item was purchased just before the customer became a member?**
 * This is the same code that was used to answer Question 6. The only changes made are 
 * 	1) The WHERE statement is used to filter out orders made after a customer became a member 
-* 	2) that in the [RANK()]() function, the ordering is reversed to [DESC}() so that the order_date closest to the join_date has a rank of 1. 
+* 	2) that in the RANK() function, the ordering is reversed to DESC so that the order_date closest to the join_date has a rank of 1. 
 ```SQL
 SELECT
     tab.customer_id, tab.order_date, tab.product_name, tab.join_date
