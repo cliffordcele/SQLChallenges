@@ -110,7 +110,37 @@ LIMIT 1;
 
 
 5. **Which item was the most popular for each customer?**
-7. **Which item was purchased first by the customer after they became a member?**
+
+*
+*
+* Ramen was the most popular item for customers A and C. Customer B ordered each item the same amount.
+```SQl
+SELECT
+    tab.customer_id, tab.product_name, tab.cnt
+FROM 
+	(SELECT s.customer_id, 
+		m.product_name, 
+        COUNT(*) AS cnt,
+        RANK() OVER (PARTITION BY s.customer_id ORDER BY COUNT(*) DESC) AS rnk
+	 FROM dannys_diner.sales s
+		LEFT JOIN dannys_diner.menu m 
+		ON s.product_id = m.product_id
+	 GROUP BY s.customer_id, m.product_name
+    ) AS tab
+WHERE rnk = 1;
+```
+| customer_id | product_name | cnt |
+| ----------- | ------------ | --- |
+| A           | ramen        | 3   |
+| B           | ramen        | 2   |
+| B           | curry        | 2   |
+| B           | sushi        | 2   |
+| C           | ramen        | 3   |
+---
+
+
+
+6. **Which item was purchased first by the customer after they became a member?**
 8. **Which item was purchased just before the customer became a member?**
 9. **What is the total items and amount spent for each member before they became a member?**
 10. **If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
