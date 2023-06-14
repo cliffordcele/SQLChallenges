@@ -18,7 +18,7 @@ Danny has shared with you 3 key datasets for this case study:
 ![ER_Diagram](ER_Diagram.png)
 
 <p align="center">
-  <img src="ER_Diagram.png" alt="ER_Diagram" width="100"/>
+  <img src="ER_Diagram.png" alt="ER_Diagram" width="300"/>
 </p>
 
 # Case Study Solutions
