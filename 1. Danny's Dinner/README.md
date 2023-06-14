@@ -35,13 +35,11 @@ FROM dannys_diner.sales s
 GROUP BY s.customer_id
 ORDER BY s.customer_id;
 ```
----
 | customer_id | total_spent |
 | ----------- | ----------- |
 | A           | 76          |
 | B           | 74          |
 | C           | 36          |
-
 ---
 
 
@@ -56,14 +54,11 @@ FROM dannys_diner.sales
 GROUP BY customer_id
 ORDER BY customer_id;
 ```
----
-
 | customer_id | count |
 | ----------- | ----- |
 | A           | 4     |
 | B           | 6     |
 | C           | 2     |
-
 ---
 
 
@@ -82,7 +77,6 @@ FROM dannys_diner.sales s
 ORDER BY s.order_date, 
 	 s.customer_id;
 ```
----
 | customer_id | order_date               | product_name |
 | ----------- | ------------------------ | ------------ |
 | A           | 2021-01-01T00:00:00.000Z | sushi        |
@@ -109,7 +103,6 @@ GROUP BY s.product_id, m.product_name
 ORDER BY purchase_count DESC
 LIMIT 1;
 ```
-
 | product_id | product_name | purchase_count |
 | ---------- | ------------ | -------------- |
 | 3          | ramen        | 8              |
