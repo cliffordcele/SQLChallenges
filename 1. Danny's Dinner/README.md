@@ -110,9 +110,10 @@ LIMIT 1;
 
 
 5. **Which item was the most popular for each customer?**
-
-*
-*
+* Left join the data from the menu table to the sales table using the product_id as the link between the two tables.
+* Parse this table and count the number of times each item was ordered by each customer  
+* Sort thi
+* Create a rank variable that w
 * Ramen was the most popular item for customers A and C. Customer B ordered each item the same amount.
 ```SQl
 SELECT
@@ -141,7 +142,36 @@ WHERE rnk = 1;
 
 
 6. **Which item was purchased first by the customer after they became a member?**
-8. **Which item was purchased just before the customer became a member?**
+*
+*
+*
+```SQL
+SELECT
+    tab.customer_id, tab.order_date, tab.product_name, tab.join_date
+FROM (
+	SELECT s.customer_id, s.order_date, m.product_name, mbr.join_date,
+	RANK() OVER (PARTITION BY s.customer_id ORDER BY s.order_date ASC) AS rnk
+	FROM dannys_diner.sales s
+	JOIN dannys_diner.menu m
+  		ON s.product_id = m.product_id
+	JOIN dannys_diner.members mbr
+  		ON s.customer_id = mbr.customer_id
+	WHERE order_date > join_date 
+    GROUP BY s.customer_id, s.order_date, m.product_name, mbr.join_date
+	ORDER BY s.order_date, s.customer_id
+	) AS tab
+WHERE rnk = 1;
+```
+
+
+| customer_id | order_date               | product_name | join_date                |
+| ----------- | ------------------------ | ------------ | ------------------------ |
+| A           | 2021-01-10T00:00:00.000Z | ramen        | 2021-01-07T00:00:00.000Z |
+| B           | 2021-01-11T00:00:00.000Z | sushi        | 2021-01-09T00:00:00.000Z |
+---
+
+
+7. **Which item was purchased just before the customer became a member?**
 9. **What is the total items and amount spent for each member before they became a member?**
 10. **If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
 11. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
