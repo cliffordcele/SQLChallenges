@@ -94,9 +94,14 @@ ORDER BY s.order_date,
 
 
 4. **What is the most purchased item on the menu and how many times was it purchased by all customers?**
-
+* Left join the data from the menu table to the sales table using the product_id as the link between the two tables.
+* Count the number of times each product_id appears in the sales table 
+* Sort the joined table by the purchase_count of each product_id from greatest to least
+* Limit the output to the top product_name purchased
 ```SQL
-SELECT s.product_id, m.product_name, COUNT(s.product_id) AS purchase_count
+SELECT s.product_id, 
+       m.product_name, 
+       COUNT(s.product_id) AS purchase_count
 FROM dannys_diner.sales s
 	LEFT JOIN dannys_diner.menu m 
 	ON s.product_id = m.product_id
