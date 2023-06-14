@@ -16,7 +16,7 @@ Danny has shared with you 3 key datasets for this case study:
 # Entity Relationship Diagram
 
 <p align="center">
-  <img src="ER_Diagram.png" alt="ER_Diagram" width="300"/>
+  <img src="ER_Diagram.png" alt="ER_Diagram" width="600"/>
 </p>
 
 
