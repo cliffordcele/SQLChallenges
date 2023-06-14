@@ -9,9 +9,9 @@ Danny wants to use the data to answer a few simple questions about his customers
 # Data & Entity Relationship Diagram
 
 Danny has shared with you 3 key datasets for this case study:
-* sales
-* menu
-* members
+* **sales:** captures all customer_id level purchases with an corresponding order_date and product_id information for when and what menu items were ordered.
+* **menu:** maps the product_id to the actual product_name and price of each menu item.
+* **members:** captures the join_date when a customer_id joined the beta version of the Danny’s Diner loyalty program.
 
 # Case Study Questions
 
