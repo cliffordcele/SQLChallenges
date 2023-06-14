@@ -23,9 +23,9 @@ Danny has shared with you 3 key datasets for this case study:
 # Case Study Solutions
 
 1. **What is the total amount each customer spent at the restaurant?**
-```
+```SQL
 SELECT s.customer_id, 
-	   SUM(m.price) AS total_spent
+	SUM(m.price) AS total_spent
 FROM dannys_diner.sales s
 	LEFT JOIN dannys_diner.menu m 
 	ON s.product_id = m.product_id
