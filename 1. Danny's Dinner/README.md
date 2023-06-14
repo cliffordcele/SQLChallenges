@@ -120,13 +120,13 @@ SELECT
 FROM 
 	(SELECT s.customer_id, 
 		m.product_name, 
-        COUNT(*) AS cnt,
-        RANK() OVER (PARTITION BY s.customer_id ORDER BY COUNT(*) DESC) AS rnk
-	 FROM dannys_diner.sales s
+        	COUNT(*) AS cnt,
+        	RANK() OVER (PARTITION BY s.customer_id ORDER BY COUNT(*) DESC) AS rnk
+	FROM dannys_diner.sales s
 		LEFT JOIN dannys_diner.menu m 
 		ON s.product_id = m.product_id
 	 GROUP BY s.customer_id, m.product_name
-    ) AS tab
+	 ) AS tab
 WHERE rnk = 1;
 ```
 | customer_id | product_name | cnt |
