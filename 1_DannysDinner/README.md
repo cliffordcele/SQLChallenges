@@ -15,13 +15,13 @@ Danny has shared with you 3 key datasets for this case study:
 
 # Entity Relationship Diagram
 
-![ER_Diagram](ER_Diagram.png)
-
 <p align="center">
   <img src="ER_Diagram.png" alt="ER_Diagram" width="300"/>
 </p>
 
+
 # Case Study Solutions
+
 1. **What is the total amount each customer spent at the restaurant?**
 2. **How many days has each customer visited the restaurant?**
 3. **What was the first item from the menu purchased by each customer?**
