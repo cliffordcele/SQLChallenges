@@ -23,7 +23,6 @@ Danny has shared with you 3 key datasets for this case study:
 # Case Study Solutions
 
 1. **What is the total amount each customer spent at the restaurant?**
-
 * Left join the data from the menu table to the sales table using the product_id as the link between the two tables
 * Group the orders made in the sales table by the customer_id
 * Sum the price for each order by customer_id to obtain the total_spent by customer
@@ -46,8 +45,7 @@ ORDER BY s.customer_id;
 ---
 
 
-
-3. **How many days has each customer visited the restaurant?**
+2. **How many days has each customer visited the restaurant?**
 * Group the orders made in the sales table by the customer_id
 * Use the distinct count function on order_date to count the number of unique dates per customer
 
@@ -68,15 +66,36 @@ ORDER BY customer_id;
 
 ---
 
-[View on DB Fiddle](https://www.db-fiddle.com/f/2rM8RAnq7h5LLDTzZiRWcd/138)
 
-5. **What was the first item from the menu purchased by each customer?**
-6. **What is the most purchased item on the menu and how many times was it purchased by all customers?**
-7. **Which item was the most popular for each customer?**
-8. **Which item was purchased first by the customer after they became a member?**
-9. **Which item was purchased just before the customer became a member?**
-10. **What is the total items and amount spent for each member before they became a member?**
-11. **If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
-12. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
+3. **What was the first item from the menu purchased by each customer?**
+
+```SQL
+SELECT s.customer_id, 
+	   s.order_date, 
+       m.product_name
+FROM dannys_diner.sales s
+	LEFT JOIN dannys_diner.menu m 
+	ON s.product_id = m.product_id
+ORDER BY s.order_date, 
+	 s.customer_id;
+```
+---
+| customer_id | order_date               | product_name |
+| ----------- | ------------------------ | ------------ |
+| A           | 2021-01-01T00:00:00.000Z | sushi        |
+| A           | 2021-01-01T00:00:00.000Z | curry        |
+| B           | 2021-01-01T00:00:00.000Z | curry        |
+| C           | 2021-01-01T00:00:00.000Z | ramen        |
+| C           | 2021-01-01T00:00:00.000Z | ramen        |
+---
+
+
+5. **What is the most purchased item on the menu and how many times was it purchased by all customers?**
+6. **Which item was the most popular for each customer?**
+7. **Which item was purchased first by the customer after they became a member?**
+8. **Which item was purchased just before the customer became a member?**
+9. **What is the total items and amount spent for each member before they became a member?**
+10. **If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
+11. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
 
 
