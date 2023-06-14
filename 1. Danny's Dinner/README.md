@@ -23,6 +23,10 @@ Danny has shared with you 3 key datasets for this case study:
 # Case Study Solutions
 
 1. **What is the total amount each customer spent at the restaurant?**
+
+* Left join the data from the menu table to the sales table using the product_id as the link between the two tables
+* Group the orders made in the sales table by the customer_id
+* Sum the price for each order by customer_id to obtain the total_spent by customer
 ```SQL
 SELECT s.customer_id, 
 	SUM(m.price) AS total_spent
@@ -33,7 +37,6 @@ GROUP BY s.customer_id
 ORDER BY s.customer_id;
 ```
 ---
-
 | customer_id | total_spent |
 | ----------- | ----------- |
 | A           | 76          |
@@ -42,7 +45,6 @@ ORDER BY s.customer_id;
 
 ---
 
-[View on DB Fiddle](https://www.db-fiddle.com/f/2rM8RAnq7h5LLDTzZiRWcd/138)
 
 
 3. **How many days has each customer visited the restaurant?**
