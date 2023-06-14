@@ -93,8 +93,25 @@ ORDER BY s.order_date,
 ---
 
 
-5. **What is the most purchased item on the menu and how many times was it purchased by all customers?**
-6. **Which item was the most popular for each customer?**
+4. **What is the most purchased item on the menu and how many times was it purchased by all customers?**
+
+```SQL
+SELECT s.product_id, m.product_name, COUNT(s.product_id) AS purchase_count
+FROM dannys_diner.sales s
+	LEFT JOIN dannys_diner.menu m 
+	ON s.product_id = m.product_id
+GROUP BY s.product_id, m.product_name
+ORDER BY purchase_count DESC
+LIMIT 1;
+```
+---
+| product_id | product_name | purchase_count |
+| ---------- | ------------ | -------------- |
+| 3          | ramen        | 8              |
+---
+
+
+5. **Which item was the most popular for each customer?**
 7. **Which item was purchased first by the customer after they became a member?**
 8. **Which item was purchased just before the customer became a member?**
 9. **What is the total items and amount spent for each member before they became a member?**
