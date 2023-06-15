@@ -223,8 +223,34 @@ ORDER BY s.customer_id;
 
 
 9. **If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
+* Use a subquery to create a table that contains the number of points per item ordered
+* This is done by using the CASE expression as an IF/ELSE statement to find the sushi vs other orders.
+* Text in a column can be found using the LIKE statement
+* The appropriate points per order are then applied using the price_id
+* An outer query is used to summarize the total number of points per customer with the SUM() function and GROUP BY statement.  
+```SQL
+SELECT tbl.customer_id, SUM(points) AS total_pts
+FROM (
+	SELECT 
+		s.customer_id, 
+    	CASE WHEN m.product_name LIKE 'sushi' 
+    		THEN 2*10*m.price
+    		ELSE 10*m.price 
+     	END AS points
+	FROM dannys_diner.sales s
+		JOIN dannys_diner.menu m ON s.product_id = m.product_id
+) AS tbl
+GROUP BY tbl.customer_id
+ORDER BY tbl.customer_id;
+```
+| customer_id | sum |
+| ----------- | --- |
+| A           | 860 |
+| B           | 940 |
+| C           | 360 |
+---
 
 
-12. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
+10. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
 
 
