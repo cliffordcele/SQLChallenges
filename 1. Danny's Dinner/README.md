@@ -231,12 +231,11 @@ ORDER BY s.customer_id;
 ```SQL
 SELECT tbl.customer_id, SUM(points) AS total_pts
 FROM (
-	SELECT 
-		s.customer_id, 
-    	CASE WHEN m.product_name LIKE 'sushi' 
-    		THEN 2*10*m.price
-    		ELSE 10*m.price 
-     	END AS points
+	SELECT s.customer_id, 
+    		CASE WHEN m.product_name LIKE 'sushi' 
+    			THEN 2*10*m.price
+    			ELSE 10*m.price 
+     		END AS points
 	FROM dannys_diner.sales s
 		JOIN dannys_diner.menu m ON s.product_id = m.product_id
 ) AS tbl
