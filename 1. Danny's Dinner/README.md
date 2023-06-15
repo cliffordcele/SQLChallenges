@@ -199,8 +199,31 @@ WHERE rnk = 1;
 
 
 
-9. **What is the total items and amount spent for each member before they became a member?**
-10. **If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
-11. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
+8. **What is the total items and amount spent for each member before they became a member?**
+
+* Join tall tables together using the product_id and customer_id as the link between tables.
+* Use WHERE statement to filter out orders made before a customer became a member
+* Use GROUP BY statement to perform calculations by customer
+* COUNT(*) function determines the number of orders made by customer
+* SUM(m.price) calculates the total spent by customer before membership
+```SQL
+SELECT s.customer_id, COUNT(*) AS total_items, SUM(m.price) AS amnt_spent
+FROM dannys_diner.sales s
+	JOIN dannys_diner.menu m ON s.product_id = m.product_id
+	JOIN dannys_diner.members mbr ON s.customer_id = mbr.customer_id
+WHERE s.order_date < mbr.join_date 
+GROUP BY s.customer_id
+ORDER BY s.customer_id;
+```
+| customer_id | total_items | amnt_spent |
+| ----------- | ----------- | ---------- |
+| A           | 2           | 25         |
+| B           | 3           | 40         |
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/2rM8RAnq7h5LLDTzZiRWcd/4716)
+
+11. **If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?**
+12. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
 
 
