@@ -251,6 +251,36 @@ ORDER BY tbl.customer_id;
 
 
 10. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
+
+* The same approach taken in #9 is used here only
+*  i.  an additional WHEN statement is used to find the orders that occur within the first week of joining the program.
+*  ii. the WHERE statement in the tbl is used to filter out orders that occur before February.
+```SQL
+SELECT tbl.customer_id, SUM(points) AS total_pts
+FROM 
+(
+SELECT s.customer_id, s.order_date, m.product_name, m.price, mbr.join_date, mbr.join_date + interval '7' day AS end_join_week,
+    	CASE WHEN m.product_name = 'sushi' THEN 2*10*m.price
+        	 WHEN  s.order_date BETWEEN  mbr.join_date AND mbr.join_date + interval '7' day THEN 2*10*m.price
+        ELSE 10*m.price  
+     	END AS points
+FROM dannys_diner.sales s
+	JOIN dannys_diner.menu m ON s.product_id = m.product_id
+    JOIN dannys_diner.members mbr ON s.customer_id = mbr.customer_id
+ORDER BY s.customer_id, s.order_date
+) AS tbl
+WHERE tbl.order_date < '2021-02-01'
+GROUP BY tbl.customer_id
+ORDER BY tbl.customer_id;
+```
+| customer_id | total_pts |
+| ----------- | --------- |
+| A           | 1370      |
+| B           | 940       |
+---
+
+
+
 11.  ** sss **
 
 ```SQL
