@@ -280,7 +280,10 @@ ORDER BY tbl.customer_id;
 
 
 
-11.  ** Danny would like to recreate the white table shown below **
+11.  **Danny would like to recreate the white table shown below.**
+<p align="center">
+  <img src="join_all" alt="num_11_tab" width="600"/>
+</p>
 
 ```SQL
 SELECT s.customer_id, s.order_date, m.product_name, m.price,
@@ -312,7 +315,8 @@ ORDER BY s.customer_id, s.order_date;
 | C           | 2021-01-07T00:00:00.000Z | ramen        | 12    | N      |
 ---
 
-12. ** Danny also requires further information about the ranking of customer products, but he purposely does not need the ranking for non-member purchases so he expects null ranking values for the records when customers are not yet part of the loyalty program. **
+
+12. **Danny also requires further information about the ranking of customer products, but he purposely does not need the ranking for non-member purchases so he expects null ranking values for the records when customers are not yet part of the loyalty program.**
 * The same approach taken in #11 is used here with the following additions:
 * i. An additional CASE WHEN statement is used to create the ranking column
 * ii. In this second CASE WHEN, orders before the joined date are durned into NULL
