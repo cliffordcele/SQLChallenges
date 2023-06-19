@@ -314,5 +314,36 @@ ORDER BY s.customer_id, s.order_date;
 
 12. ** d **
 
-
+```SQL
+SELECT s.customer_id, s.order_date, m.product_name, m.price,
+	   CASE WHEN s.order_date < mbr.join_date THEN 'N'
+    		WHEN s.order_date >= mbr.join_date THEN 'Y' 
+            	WHEN mbr.join_date IS NULL THEN 'N'
+       END AS member,
+       
+       CASE WHEN s.order_date < mbr.join_date THEN NULL
+       		ELSE RANK() OVER (PARTITION BY s.customer_id, (CASE WHEN s.order_date >= mbr.join_date THEN 1 ELSE 2 END)
+                                  ORDER BY s.order_date)
+       END AS rnk 
+FROM dannys_diner.sales s
+	LEFT JOIN dannys_diner.menu m ON s.product_id = m.product_id
+	LEFT JOIN dannys_diner.members mbr ON s.customer_id = mbr.customer_id
+WHERE s.customer_id IN ('A','B')
+ORDER BY s.customer_id, s.order_date;
+```
+| customer_id | order_date               | product_name | price | member | rnk |
+| ----------- | ------------------------ | ------------ | ----- | ------ | --- |
+| A           | 2021-01-01T00:00:00.000Z | curry        | 15    | N      |     |
+| A           | 2021-01-01T00:00:00.000Z | sushi        | 10    | N      |     |
+| A           | 2021-01-07T00:00:00.000Z | curry        | 15    | Y      | 1   |
+| A           | 2021-01-10T00:00:00.000Z | ramen        | 12    | Y      | 2   |
+| A           | 2021-01-11T00:00:00.000Z | ramen        | 12    | Y      | 3   |
+| A           | 2021-01-11T00:00:00.000Z | ramen        | 12    | Y      | 3   |
+| B           | 2021-01-01T00:00:00.000Z | curry        | 15    | N      |     |
+| B           | 2021-01-02T00:00:00.000Z | curry        | 15    | N      |     |
+| B           | 2021-01-04T00:00:00.000Z | sushi        | 10    | N      |     |
+| B           | 2021-01-11T00:00:00.000Z | sushi        | 10    | Y      | 1   |
+| B           | 2021-01-16T00:00:00.000Z | ramen        | 12    | Y      | 2   |
+| B           | 2021-02-01T00:00:00.000Z | ramen        | 12    | Y      | 3   |
+---
 
