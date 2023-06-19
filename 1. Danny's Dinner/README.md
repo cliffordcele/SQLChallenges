@@ -282,7 +282,7 @@ ORDER BY tbl.customer_id;
 
 11.  **Danny would like to recreate the white table shown below.**
 <p align="center">
-  <img src="Pictures/join_all" alt="num_11_tab" width="600"/>
+  <img src="Pictures/join_all.png" alt="num_11_tab" width="600"/>
 </p>
 
 ```SQL
