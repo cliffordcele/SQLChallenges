@@ -16,7 +16,7 @@ Danny has shared with you 3 key datasets for this case study:
 # Entity Relationship Diagram
 
 <p align="center">
-  <img src="ER_Diagram.png" alt="ER_Diagram" width="600"/>
+  <img src="Pictures/ER_Diagram.png" alt="ER_Diagram" width="600"/>
 </p>
 
 
@@ -282,7 +282,7 @@ ORDER BY tbl.customer_id;
 
 11.  **Danny would like to recreate the white table shown below.**
 <p align="center">
-  <img src="join_all" alt="num_11_tab" width="600"/>
+  <img src="Pictures/join_all" alt="num_11_tab" width="600"/>
 </p>
 
 ```SQL
