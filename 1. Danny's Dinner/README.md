@@ -280,7 +280,7 @@ ORDER BY tbl.customer_id;
 
 
 
-11.  ** sss **
+11.  ** Danny would like to recreate the white table shown below **
 
 ```SQL
 SELECT s.customer_id, s.order_date, m.product_name, m.price,
@@ -312,19 +312,24 @@ ORDER BY s.customer_id, s.order_date;
 | C           | 2021-01-07T00:00:00.000Z | ramen        | 12    | N      |
 ---
 
-12. ** d **
+12. ** Danny also requires further information about the ranking of customer products, but he purposely does not need the ranking for non-member purchases so he expects null ranking values for the records when customers are not yet part of the loyalty program. **
+* The same approach taken in #11 is used here with the following additions:
+* i. An additional CASE WHEN statement is used to create the ranking column
+* ii. In this second CASE WHEN, orders before the joined date are durned into NULL
+* iii. Orders on or after the join date are grouped by customer and a third CASE WHEN is used to identify with orders on/after the join date
+* iv. Then ranked based on their order date
 
 ```SQL
 SELECT s.customer_id, s.order_date, m.product_name, m.price,
-	   CASE WHEN s.order_date < mbr.join_date THEN 'N'
+	CASE WHEN s.order_date < mbr.join_date THEN 'N'
     		WHEN s.order_date >= mbr.join_date THEN 'Y' 
             	WHEN mbr.join_date IS NULL THEN 'N'
-       END AS member,
+	END AS member,
        
-       CASE WHEN s.order_date < mbr.join_date THEN NULL
+        CASE WHEN s.order_date < mbr.join_date THEN NULL
        		ELSE RANK() OVER (PARTITION BY s.customer_id, (CASE WHEN s.order_date >= mbr.join_date THEN 1 ELSE 2 END)
                                   ORDER BY s.order_date)
-       END AS rnk 
+        END AS rnk 
 FROM dannys_diner.sales s
 	LEFT JOIN dannys_diner.menu m ON s.product_id = m.product_id
 	LEFT JOIN dannys_diner.members mbr ON s.customer_id = mbr.customer_id
