@@ -253,8 +253,8 @@ ORDER BY tbl.customer_id;
 10. **In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?**
 
 * The same approach taken in #9 is used here with the following additions:
-i.  In the subquery, an additional WHEN statement is used to find the orders that occur within the first week of joining the program.
-ii. A WHERE statement in the tbl is used to filter out orders that occur before February.
+* i.  In the subquery, an additional WHEN statement is used to find the orders that occur within the first week of joining the program.
+* ii. A WHERE statement in the tbl is used to filter out orders that occur before February.
 ```SQL
 SELECT tbl.customer_id, SUM(points) AS total_pts
 FROM (
