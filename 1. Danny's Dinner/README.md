@@ -110,10 +110,10 @@ LIMIT 1;
 
 
 5. **Which item was the most popular for each customer?**
-* Left join the data from the menu table to the sales table using the product_id as the link between the two tables.
-* Parse this table and count the number of times each item was ordered by each customer  
-* Sort thi
-* Create a rank variable that w
+* In the subquery, left join the data from the menu table to the sales table using the product_id as the link between the two tables.
+* Count the number of rows per customer_id and then per product_name. This provides the number of times each customer ordered each item.
+* Use the RANK OVER statement to rank the order counts by customer_id. 
+* The outer query returns the customer_id and products_names that have a rank = 1 (i.e., most popular item[s]).
 * Ramen was the most popular item for customers A and C. Customer B ordered each item the same amount.
 ```SQl
 SELECT
@@ -142,9 +142,12 @@ WHERE rnk = 1;
 
 
 6. **Which item was purchased first by the customer after they became a member?**
-*
-*
-*
+* In the subquery, join all tables together using the product_id and customer_id as the link between tables.
+* Use the WHERE statement to filter out orders made before a customer became a member
+* Per customer, use the RANK OVER statement to rank the orders by the date they were made.
+* The outer query returns the customer_id and products_names that have a rank = 1 (i.e., first order made by each customer after becoming a member).
+* Customer A ordered ramen, and customer B ordered sushi. 
+
 ```SQL
 SELECT
     tab.customer_id, tab.order_date, tab.product_name, tab.join_date
@@ -201,7 +204,7 @@ WHERE rnk = 1;
 
 8. **What is the total items and amount spent for each member before they became a member?**
 
-* Join tall tables together using the product_id and customer_id as the link between tables.
+* Join all tables together using the product_id and customer_id as the link between tables.
 * Use WHERE statement to filter out orders made before a customer became a member
 * Use GROUP BY statement to perform calculations by customer
 * COUNT(*) function determines the number of orders made by customer
