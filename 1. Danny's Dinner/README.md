@@ -4,7 +4,7 @@ Danny seriously loves Japanese food. So in the beginning of 2021, he decides to 
 
 # Problem Statement
 
-Danny wants to use the data to answer a few simple questions about his customers. Having a deeper connection with his customers will help him deliver a better and more personalised experience for his loyal customers.
+Danny wants to use customer data to answer a few simple questions about them. Having a deeper connection with his customers will help him deliver a better, and more personalised experience for his loyal customers.
 
 # Data
 
