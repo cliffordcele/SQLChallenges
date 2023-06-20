@@ -63,19 +63,22 @@ ORDER BY customer_id;
 
 
 3. **What was the first item from the menu purchased by each customer?**
-* Left join the data from the menu table to the sales table using the product_id as the link between the two tables.
+* In the subqeery, left join the data from the menu table to the sales table using the product_id as the link between the two tables.
 * Sort the table by the order_date and then by customer_id to find the earliest purchases by customer.
-* Note one, customers A and C ordered more than one item during their first purchase.
-* Note two, the query below will return all the orders made sorted by date and customer. The table below is a subset of the full table.
+* Use the RANK OVER statement to rank the orders by date per customer_id. 
+* Use outer query to select rows with a rank = 1 (i.e., the earliest purchases by customer).
+* Note, customers A and C ordered more than one item during their first purchase.
 ```SQL
-SELECT s.customer_id, 
-       s.order_date, 
-       m.product_name
-FROM dannys_diner.sales s
-	LEFT JOIN dannys_diner.menu m 
-	ON s.product_id = m.product_id
-ORDER BY s.order_date, 
-	 s.customer_id;
+SELECT tbl.customer_id, tbl.product_name
+FROM(
+	SELECT s.customer_id, s.order_date, m.product_name,
+    	   RANK() OVER (PARTITION BY s.customer_id ORDER BY s.order_date ASC) AS rnk
+	FROM dannys_diner.sales s
+		LEFT JOIN dannys_diner.menu m 
+		ON s.product_id = m.product_id
+	ORDER BY s.order_date, s.customer_id
+	) AS tbl
+WHERE rnk = 1;
 ```
 | customer_id | order_date               | product_name |
 | ----------- | ------------------------ | ------------ |
