@@ -21,11 +21,32 @@ Danny has shared five datasets for this case study:
 </p>
 
 # Data Cleaning
-** customer_orders table: The exclusions and extras columns will need to be cleaned up before using them in your queries. **
+**customer_orders table: The exclusions and extras columns will need to be cleaned up before using them in your queries.**
 
-** runner_orders: There are some known data issues with this table so be careful when using this in your queries - make sure to check the data types for each column in the schema SQL! **
+```SQL
+-- Check data types of column
+SELECT column_name, data_type
+FROM information_schema.columns
+WHERE table_schema = 'pizza_runner' AND 
+	  table_name = 'customer_orders';
+```
+---
+| column_name | data_type                   |
+| ----------- | --------------------------- |
+| order_id    | integer                     |
+| customer_id | integer                     |
+| pizza_id    | integer                     |
+| exclusions  | character varying           |
+| extras      | character varying           |
+| order_time  | timestamp without time zone |
 
-** null values and data types in the customer_orders and runner_orders tables. **
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/7VcQKQwsS3CTkGRFG7vu98/65)
+
+**runner_orders: There are some known data issues with this table so be careful when using this in your queries - make sure to check the data types for each column in the schema SQL.**
+
+**null values and data types in the customer_orders and runner_orders tables.**
 
 
 
