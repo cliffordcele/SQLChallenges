@@ -146,14 +146,66 @@ UPDATE pizza_runner.runner_orders
 
 
 -- remove the text from the duration & distance variables.
+-- remove extra texrt 'cancellation' for cancellation column, redundant
 UPDATE pizza_runner.runner_orders
-SET distance = REGEXP_REPLACE(distance,'[[:alpha:]]','','g'),
-    duration = REGEXP_REPLACE(duration,'[[:alpha:]]','','g');
+SET distance     = REGEXP_REPLACE(distance,'[[:alpha:]]','','g'),
+    duration     = REGEXP_REPLACE(duration,'[[:alpha:]]','','g'),
+    cancellation = REGEXP_REPLACE(cancellation,' Cancellation','','g');
 
--- Change the variable types accordingly.
+-- Change the variable types for pickup_time & cancellation.
+ALTER TABLE pizza_runner.runner_orders 
+      ALTER COLUMN pickup_time  TYPE TIMESTAMP WITHOUT TIME ZONE USING to_timestamp(pickup_time,'YYYY-MM-DD HH24:MI:SS'),
+      ALTER COLUMN cancellation TYPE VARCHAR(50);
 
+
+-- 1. Create new columns of target data types
+ALTER TABLE pizza_runner.runner_orders ADD dist NUMERIC, ADD dur INTEGER;
+
+-- 2. Set new columns equal to old columns in numeric form
+UPDATE pizza_runner.runner_orders 
+	SET dist = CAST(distance AS NUMERIC),
+            dur  = CAST(duration AS INTEGER);
+-- 3. Delete old VARCHAR columns
+ALTER TABLE pizza_runner.runner_orders
+    DROP COLUMN distance,
+    DROP COLUMN duration;
+-- 4. Rename new columns to old column name
+ALTER TABLE pizza_runner.runner_orders
+    RENAME COLUMN dist TO distance;
+ALTER TABLE pizza_runner.runner_orders
+    RENAME COLUMN dur TO duration;
+
+-- 5. Check work
+SELECT column_name, data_type
+FROM information_schema.columns
+WHERE table_schema = 'pizza_runner' AND 
+table_name = 'runner_orders';
+
+SELECT *
+FROM pizza_runner.runner_orders;
 ```
+| column_name  | data_type                   |
+| ------------ | --------------------------- |
+| order_id     | integer                     |
+| runner_id    | integer                     |
+| pickup_time  | timestamp without time zone |
+| cancellation | character varying           |
+| distance     | numeric                     |
+| duration     | integer                     |
 
+| order_id | runner_id | pickup_time              | cancellation | distance | duration |
+| -------- | --------- | ------------------------ | ------------ | -------- | -------- |
+| 1        | 1         | 2020-01-01T18:15:34.000Z |              | 20       | 32       |
+| 2        | 1         | 2020-01-01T19:10:54.000Z |              | 20       | 27       |
+| 3        | 1         | 2020-01-03T00:12:37.000Z |              | 13.4     | 20       |
+| 4        | 2         | 2020-01-04T13:53:03.000Z |              | 23.4     | 40       |
+| 5        | 3         | 2020-01-08T21:10:57.000Z |              | 10       | 15       |
+| 6        | 3         |                          | Restaurant   |          |          |
+| 7        | 2         | 2020-01-08T21:30:45.000Z |              | 25       | 25       |
+| 8        | 2         | 2020-01-10T00:15:02.000Z |              | 23.4     | 15       |
+| 9        | 2         |                          | Customer     |          |          |
+| 10       | 1         | 2020-01-11T18:50:20.000Z |              | 10       | 10       |
+---
 
 
 # Case Study Solutions
