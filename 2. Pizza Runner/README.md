@@ -250,16 +250,16 @@ GROUP BY R.runner_id;
 
 
 4. **How many of each type of pizza was delivered?**
-* Join the customer_orders & runner_orders tables together based on their order_id
+* Join the runner_orders & pizza_names tables to customer_orders based on their order_id and pizza_id respectively
 * Filter the new table for rows with no for cancellations (NULL)
-* Count the number of distinct order_id's per runner_id (GROUP BY)
+* Count the number of times each pizza_name occurs (GROUP BY)
 ```SQL
 SELECT P.pizza_name, COUNT(P.pizza_name)
 FROM pizza_runner.customer_orders C
 JOIN pizza_runner.runner_orders R
-	ON C.order_id = R.order_id
+     ON C.order_id = R.order_id
 JOIN pizza_runner.pizza_names P
-  ON C.pizza_id = P.pizza_id
+     ON C.pizza_id = P.pizza_id
 WHERE cancellation IS NULL
 GROUP BY P.pizza_name;
 ```
@@ -332,17 +332,4 @@ GROUP BY P.pizza_name;
 **If Danny wants to expand his range of pizzas - how would this impact the existing data design? Write an [INSERT]() statement to demonstrate what would happen if a new [Supreme]() pizza with all the toppings was added to the Pizza Runner menu?**
 
 
-8. **What is the total items and amount spent for each member before they became a member?**
-
-* Join all tables together using the product_id and customer_id as the link between tables.
-* Use WHERE statement to filter out orders made before a customer became a member
-* Use GROUP BY statement to perform calculations by customer
-* COUNT(*) function determines the number of orders made by customer
-* SUM(m.price) calculates the total spent by customer before membership
-
-| customer_id | total_items | amnt_spent |
-| ----------- | ----------- | ---------- |
-| A           | 2           | 25         |
-| B           | 3           | 40         |
----
 
