@@ -160,7 +160,6 @@ ALTER TABLE pizza_runner.runner_orders
 
 -- 1. Create new columns of target data types
 ALTER TABLE pizza_runner.runner_orders ADD dist NUMERIC, ADD dur INTEGER;
-
 -- 2. Set new columns equal to old columns in numeric form
 UPDATE pizza_runner.runner_orders 
 	SET dist = CAST(distance AS NUMERIC),
