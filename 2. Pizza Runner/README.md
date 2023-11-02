@@ -143,7 +143,15 @@ UPDATE pizza_runner.runner_orders
         duration    = CASE WHEN duration    = 'null' THEN NULL ELSE duration END,
         distance    = CASE WHEN distance    = 'null' THEN NULL ELSE distance END,
         pickup_time = CASE WHEN pickup_time = 'null' THEN NULL ELSE pickup_time END;
-``
+
+
+-- remove the text from the duration & distance variables
+UPDATE pizza_runner.runner_orders
+SET distance = REGEXP_REPLACE(distance,'[[:alpha:]]','','g'),
+    duration = REGEXP_REPLACE(duration,'[[:alpha:]]','','g');
+
+-- Change the variale types accordingly
+```
 
 
 
