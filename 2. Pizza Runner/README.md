@@ -269,16 +269,44 @@ GROUP BY P.pizza_name;
 | Vegetarian | 3     |
 
    
-6. **How many Vegetarian and Meatlovers were ordered by each customer?**
-    
+5. **How many Vegetarian and Meatlovers were ordered by each customer?**
+* Join the runner_orders & pizza_names tables to customer_orders based on their order_id and pizza_id respectively
+* Count the number of times each pizza_name occurs by the customer_id & pizza_name (GROUP BY)
+* Order results by customer_id number
+```SQL
+SELECT customer_id, pizza_name, COUNT(pizza_name)
+FROM pizza_runner.customer_orders C
+JOIN pizza_runner.runner_orders R
+	ON C.order_id = R.order_id
+JOIN pizza_runner.pizza_names P
+  ON C.pizza_id = P.pizza_id
+GROUP BY customer_id, pizza_name
+ORDER BY customer_id;
+```
+| customer_id | pizza_name | count |
+| ----------- | ---------- | ----- |
+| 101         | Meatlovers | 2     |
+| 101         | Vegetarian | 1     |
+| 102         | Meatlovers | 2     |
+| 102         | Vegetarian | 1     |
+| 103         | Meatlovers | 3     |
+| 103         | Vegetarian | 1     |
+| 104         | Meatlovers | 3     |
+| 105         | Vegetarian | 1     |
+
 7. **What was the maximum number of pizzas delivered in a single order?**
-    
+
+
+
 8. **For each customer, how many delivered pizzas had at least 1 change and how many had no changes?**
-    
+
+
 9. **How many pizzas were delivered that had both exclusions and extras?**
-    
+
+
 10. **What was the total volume of pizzas ordered for each hour of the day?**
-    
+
+
 11. **What was the volume of orders for each day of the week?**
 
 
