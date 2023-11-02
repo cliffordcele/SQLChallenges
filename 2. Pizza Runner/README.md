@@ -249,7 +249,25 @@ GROUP BY R.runner_id;
 | 3         | 1     |
 
 
-5. **How many of each type of pizza was delivered?**
+4. **How many of each type of pizza was delivered?**
+* Join the customer_orders & runner_orders tables together based on their order_id
+* Filter the new table for rows with no for cancellations (NULL)
+* Count the number of distinct order_id's per runner_id (GROUP BY)
+```SQL
+SELECT P.pizza_name, COUNT(P.pizza_name)
+FROM pizza_runner.customer_orders C
+JOIN pizza_runner.runner_orders R
+	ON C.order_id = R.order_id
+JOIN pizza_runner.pizza_names P
+  ON C.pizza_id = P.pizza_id
+WHERE cancellation IS NULL
+GROUP BY P.pizza_name;
+```
+| pizza_name | count |
+| ---------  | ----- |
+| Meatlovers | 9     |
+| Vegetarian | 3     |
+
    
 6. **How many Vegetarian and Meatlovers were ordered by each customer?**
     
