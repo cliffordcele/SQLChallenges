@@ -220,7 +220,6 @@ FROM pizza_runner.customer_orders;
 | ------ | 
 | 14     | 
 
-
 2. **How many unique customer orders were made?**
 * Count the number of distinct order_id's in the customer_orders table
 ```SQL
@@ -230,10 +229,26 @@ FROM pizza_runner.customer_orders;
 | count  |
 | ------ | 
 | 10     | 
+  
+3. **How many successful orders were delivered by each runner?**
+* Join the customer_orders & runner_orders tables together based on their order_id
+* Filter the new table for rows with no for cancellations (NULL)
+* Count the number of distinct order_id's per runner_id (GROUP BY)
+```SQL
+SELECT R.runner_id, COUNT(DISTINCT R.order_id)
+FROM pizza_runner.customer_orders C
+	INNER JOIN pizza_runner.runner_orders R
+	ON C.order_id = R.order_id
+WHERE cancellation IS NULL
+GROUP BY R.runner_id;
+```
+| runner_id | count |
+| --------- | ----- |
+| 1         | 4     |
+| 2         | 3     |
+| 3         | 1     |
 
-   
-4. **How many successful orders were delivered by each runner?**
-   
+
 5. **How many of each type of pizza was delivered?**
    
 6. **How many Vegetarian and Meatlovers were ordered by each customer?**
