@@ -133,7 +133,7 @@ FROM pizza_runner.runner_orders;
 
 
 ```SQL
--- replace nulls and ''
+-- replace nulls and '' replace with NULL
 UPDATE pizza_runner.runner_orders
     SET cancellation = 
     	    CASE WHEN cancellation ='' THEN NULL
@@ -145,12 +145,13 @@ UPDATE pizza_runner.runner_orders
         pickup_time = CASE WHEN pickup_time = 'null' THEN NULL ELSE pickup_time END;
 
 
--- remove the text from the duration & distance variables
+-- remove the text from the duration & distance variables.
 UPDATE pizza_runner.runner_orders
 SET distance = REGEXP_REPLACE(distance,'[[:alpha:]]','','g'),
     duration = REGEXP_REPLACE(duration,'[[:alpha:]]','','g');
 
--- Change the variale types accordingly
+-- Change the variable types accordingly.
+
 ```
 
 
