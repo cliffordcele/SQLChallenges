@@ -277,9 +277,9 @@ GROUP BY P.pizza_name;
 SELECT customer_id, pizza_name, COUNT(pizza_name)
 FROM pizza_runner.customer_orders C
 JOIN pizza_runner.runner_orders R
-	ON C.order_id = R.order_id
+     ON C.order_id = R.order_id
 JOIN pizza_runner.pizza_names P
-  ON C.pizza_id = P.pizza_id
+     ON C.pizza_id = P.pizza_id
 GROUP BY customer_id, pizza_name
 ORDER BY customer_id;
 ```
