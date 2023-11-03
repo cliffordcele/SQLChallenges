@@ -311,7 +311,30 @@ LIMIT 1;
 
 
 7. **For each customer, how many delivered pizzas had at least 1 change and how many had no changes?**
-
+* Join the runner_orders & customer_orders tables based on the order_id
+* Remove the order_id's that were canceled
+* Combine the exclusion & extra columns with concat()
+* Use CASE WHEN to determine if each entry in the new column is empty (set equal to 1 if so), then calculate the sum per customer (No_chg)
+* Use CASE WHEN to determine if each entry in the new column is NOT empty (set equal to 1 if so), then calculate the sum per customer (chg)
+```SQL
+SELECT C.customer_id, 
+SUM(CASE WHEN concat(C.exclusions, C.extras) !='' THEN 1 END) AS chg,
+SUM(CASE WHEN concat(C.exclusions, C.extras) = '' THEN 1 END) AS No_chg
+FROM pizza_runner.customer_orders C
+INNER JOIN pizza_runner.runner_orders R
+     ON C.order_id = R.order_id
+WHERE R.cancellation IS NULL
+GROUP BY C.customer_id
+ORDER BY C.customer_id
+;
+```
+| customer_id | chg | no_chg |
+| ----------- | --- | ------ |
+| 101         |     | 2      |
+| 102         |     | 3      |
+| 103         | 3   |        |
+| 104         | 2   | 1      |
+| 105         | 1   |        |
 
 8. **How many pizzas were delivered that had both exclusions and extras?**
 
