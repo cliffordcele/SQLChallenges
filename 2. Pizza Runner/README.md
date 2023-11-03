@@ -294,20 +294,32 @@ ORDER BY customer_id;
 | 104         | Meatlovers | 3     |
 | 105         | Vegetarian | 1     |
 
-7. **What was the maximum number of pizzas delivered in a single order?**
+6. **What was the maximum number of pizzas delivered in a single order?**
+* Count the number of orders (order_id) made by customer_id
+* Sort in descending order
+* Print the highest count
+```SQL
+SELECT order_id, customer_id, COUNT(order_id) as Cnt
+FROM pizza_runner.customer_orders
+GROUP BY order_id, customer_id
+ORDER BY Cnt DESC
+LIMIT 1;
+```
+| order_id | customer_id | cnt |
+| -------- | ----------- | --- |
+| 4        | 103         | 3   |
 
 
-
-8. **For each customer, how many delivered pizzas had at least 1 change and how many had no changes?**
-
-
-9. **How many pizzas were delivered that had both exclusions and extras?**
+7. **For each customer, how many delivered pizzas had at least 1 change and how many had no changes?**
 
 
-10. **What was the total volume of pizzas ordered for each hour of the day?**
+8. **How many pizzas were delivered that had both exclusions and extras?**
 
 
-11. **What was the volume of orders for each day of the week?**
+9. **What was the total volume of pizzas ordered for each hour of the day?**
+
+
+10. **What was the volume of orders for each day of the week?**
 
 
 
