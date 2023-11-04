@@ -325,8 +325,7 @@ INNER JOIN pizza_runner.runner_orders R
      ON C.order_id = R.order_id
 WHERE R.cancellation IS NULL
 GROUP BY C.customer_id
-ORDER BY C.customer_id
-;
+ORDER BY C.customer_id;
 ```
 | customer_id | chg | no_chg |
 | ----------- | --- | ------ |
@@ -337,10 +336,37 @@ ORDER BY C.customer_id
 | 105         | 1   |        |
 
 8. **How many pizzas were delivered that had both exclusions and extras?**
-
+* Join the runner_orders & customer_orders tables based on the order_id
+* Remove the order_id's that were canceled
+* Use CASE WHEN to determine if each an order had both exclusions and extras (if so, set equal to 1)
+* Count how many times this occurs
+```SQL
+SELECT COUNT(CASE WHEN C.exclusions != '' AND C.extras != '' THEN 1 END)
+FROM pizza_runner.customer_orders C
+INNER JOIN pizza_runner.runner_orders R
+     ON C.order_id = R.order_id
+WHERE R.cancellation IS NULL;
+```
+| count  |
+| ------ | 
+| 1      |
 
 9. **What was the total volume of pizzas ordered for each hour of the day?**
-
+* Extract the hour from each order_time
+* Count the number of order_id's for each hour group
+```SQL
+SELECT COUNT(order_id) AS vol, EXTRACT(HOUR FROM order_time) AS hr
+FROM pizza_runner.customer_orders
+GROUP BY hr;
+```
+| vol | hr  |
+| --- | --- |
+| 3   | 18  |
+| 3   | 23  |
+| 3   | 21  |
+| 1   | 11  |
+| 1   | 19  |
+| 3   | 13  |
 
 10. **What was the volume of orders for each day of the week?**
 
