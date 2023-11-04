@@ -369,8 +369,21 @@ GROUP BY hr;
 | 3   | 13  |
 
 10. **What was the volume of orders for each day of the week?**
-
-
+* Extract the day of the week (DOW) from each order_time
+* Convert the integer DOWs into DOW text by assigning text to each DOW integer
+* Count the number of order_id's for each day
+```SQL
+SELECT COUNT(order_id) AS vol, 
+       ('{Sun,Mon,Tue,Wed,Thu,Fri,Sat}'::TEXT[])[EXTRACT(DOW FROM order_time) + 1] AS day_of_week
+FROM pizza_runner.customer_orders
+GROUP BY day_of_week;
+```
+| vol | day_of_week |
+| --- | ----------- |
+| 5   | Wed         |
+| 1   | Fri         |
+| 3   | Thu         |
+| 5   | Sat         |
 
 ## Runner and Customer Experience
 1. **How many runners signed up for each 1 week period? (i.e. week starts [2021-01-01]())**
