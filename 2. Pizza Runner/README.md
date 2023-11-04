@@ -469,15 +469,15 @@ INSERT INTO pizza_runner.pizza_names
 VALUES (3, 'Supreme');
 
 -- 1. Create a table to be subqueried
--- 1a. Use string_agg  to combine the two rows of toppings from the pizza_recipes table
--- 1b. Use string_to_array to create an array of separated topping values
--- 1c. Turn this array into a column with one value per row (UNNEST)
--- 1d. Remove the commas at end of each row text (REPLACE)
--- 1e. Convert the column from text to integer (CAST) and remove duplicates
+-- 	a. Use string_agg  to combine the two rows of toppings from the pizza_recipes table
+-- 	b. Use string_to_array to create an array of separated topping values
+-- 	c. Turn this array into a column with one value per row (UNNEST)
+-- 	d. Remove the commas at end of each row text (REPLACE)
+-- 	e. Convert the column from text to integer (CAST) and remove duplicates
 -- 2. Use the above table as a from subquery
--- 2a. Convert the column back into a string (CAST)
--- 2b. Aggregate the strings into one comma-separated row value (string_agg)
--- 2c. Inster this result as the 3rd index of the pizza_recipes table
+-- 	a. Convert the column back into a string (CAST)
+-- 	b. Aggregate the strings into one comma-separated row value (string_agg)
+-- 	c. Inster this result as the 3rd index of the pizza_recipes table
 INSERT INTO pizza_runner.pizza_recipes (pizza_id, toppings)
 SELECT 3, STRING_AGG(CAST(top AS VARCHAR), ',')
 FROM (SELECT DISTINCT CAST(REPLACE(UNNEST(STRING_TO_ARRAY(string_agg(toppings, ', '), ' ')), ',', '')AS INTEGER) AS top
