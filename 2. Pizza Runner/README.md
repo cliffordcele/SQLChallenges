@@ -468,6 +468,17 @@ GROUP BY day_of_week;
 INSERT INTO pizza_runner.pizza_names
 VALUES (3, 'Supreme');
 
+-- Check results
+SELECT *
+FROM pizza_runner.pizza_names;
+```
+| pizza_id | pizza_name |
+| -------- | ---------- |
+| 1        | Meatlovers |
+| 2        | Vegetarian |
+| 3        | Supreme    |
+
+``` SQL
 -- 1. Create a table to be subqueried
 -- 	a. Use string_agg  to combine the two rows of toppings from the pizza_recipes table
 -- 	b. Use string_to_array to create an array of separated topping values
@@ -479,8 +490,18 @@ VALUES (3, 'Supreme');
 -- 	b. Aggregate the strings into one comma-separated row value (string_agg)
 -- 	c. Inster this result as the 3rd index of the pizza_recipes table
 INSERT INTO pizza_runner.pizza_recipes (pizza_id, toppings)
-SELECT 3, STRING_AGG(CAST(top AS VARCHAR), ',')
+SELECT 3, STRING_AGG(CAST(top AS VARCHAR), ', ')
 FROM (SELECT DISTINCT CAST(REPLACE(UNNEST(STRING_TO_ARRAY(string_agg(toppings, ', '), ' ')), ',', '')AS INTEGER) AS top
       FROM pizza_runner.pizza_recipes
       ORDER BY top) AS new;
+
+-- Check results
+SELECT *
+FROM pizza_runner.pizza_recipes;
+
 ```
+| pizza_id | toppings                              |
+| -------- | ------------------------------------- |
+| 1        | 1, 2, 3, 4, 5, 6, 8, 10               |
+| 2        | 4, 6, 7, 9, 11, 12                    |
+| 3        | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 |
