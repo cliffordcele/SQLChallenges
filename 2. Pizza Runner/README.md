@@ -21,9 +21,7 @@ Danny has shared five datasets for this case study:
 </p>
 
 # Data Cleaning
-
-<details>
-<summary>customer_orders table:<summary>
+## **customer_orders table:**
 * The exclusions and extras columns will need to be cleaned up before using them in your queries.
 ```SQL
 -- Check data types of column
@@ -88,9 +86,6 @@ UPDATE pizza_runner.customer_orders
 | 9        | 103         | 1        | 4          | 1, 5   | 2020-01-10T11:22:59.000Z |
 | 10       | 104         | 1        |            |        | 2020-01-11T18:34:49.000Z |
 | 10       | 104         | 1        | 2, 6       | 1, 4   | 2020-01-11T18:34:49.000Z |
-</details>
-
-
 
 ## **runner_orders:**
 There are some known data issues with this table so be careful when using this in your queries - make sure to check the data types for each column in the schema SQL.
