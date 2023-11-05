@@ -21,8 +21,10 @@ Danny has shared five datasets for this case study:
 </p>
 
 # Data Cleaning
+
 <details>
 <summary>Expand<summary>
+	
 ## **customer_orders table:** 
 * The exclusions and extras columns will need to be cleaned up before using them in your queries.
 ```SQL
