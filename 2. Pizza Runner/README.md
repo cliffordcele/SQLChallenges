@@ -387,7 +387,20 @@ GROUP BY day_of_week;
 
 ## Runner and Customer Experience
 1. **How many runners signed up for each 1 week period? (i.e. week starts [2021-01-01]())**
-
+* Convert each registration_date to a string and extract its week number
+* Count the runner_id's per week number (GROUP BY week)
+* Order results by week number
+```SQL
+SELECT TO_CHAR(registration_date, 'W') AS week, count(runner_id)
+FROM pizza_runner.runners
+GROUP BY week
+ORDER BY week;
+```
+| week | count |
+| ---- | ----- |
+| 1    | 2     |
+| 2    | 1     |
+| 3    | 1     |
 
 2. **What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?**
 
