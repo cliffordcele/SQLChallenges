@@ -20,9 +20,9 @@ Danny has shared five datasets for this case study:
   <img src="Pictures/ER_Diagram.png" alt="ER_Diagram" width="600"/>
 </p>
 
+# Data Cleaning
 <details>
-<summary>
-# Data Cleaning<summary>
+<summary>Expand<summary>
 ## **customer_orders table:** 
 * The exclusions and extras columns will need to be cleaned up before using them in your queries.
 ```SQL
