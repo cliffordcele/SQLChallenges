@@ -23,9 +23,7 @@ Danny has shared five datasets for this case study:
 # Data Cleaning
 
 <details>
-<summary>Expand<summary>
-	
-## **customer_orders table:** 
+<summary>customer_orders table:<summary>
 * The exclusions and extras columns will need to be cleaned up before using them in your queries.
 ```SQL
 -- Check data types of column
@@ -90,7 +88,7 @@ UPDATE pizza_runner.customer_orders
 | 9        | 103         | 1        | 4          | 1, 5   | 2020-01-10T11:22:59.000Z |
 | 10       | 104         | 1        |            |        | 2020-01-11T18:34:49.000Z |
 | 10       | 104         | 1        | 2, 6       | 1, 4   | 2020-01-11T18:34:49.000Z |
-
+</details>
 
 
 
@@ -209,7 +207,7 @@ FROM pizza_runner.runner_orders;
 | 9        | 2         |                          | Customer     |          |          |
 | 10       | 1         | 2020-01-11T18:50:20.000Z |              | 10       | 10       |
 ---
-</details>
+
 
 # Case Study Solutions
 
